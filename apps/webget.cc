@@ -18,7 +18,9 @@ void get_URL(const string &host, const string &path) {
     // the "eof" (end of file).
     TCPSocket sock;
     sock.connect(Address(host, "http"));
-    sock.write("GET " + path + " HTTP/1.1\r\nHost: " + host + "\r\n" + "Connection: close\r\n\r\n");
+    sock.write("GET " + path + " HTTP/1.1\r\n");
+    sock.write("Host: " + host + "\r\n");
+    sock.write("Connection: close\r\n\r\n");
     while (!sock.eof()) {
         auto s = sock.read(1024);
         cerr << s;
