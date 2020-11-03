@@ -1,3 +1,4 @@
+#include "regex"
 #include "socket.hh"
 #include "util.hh"
 
@@ -21,10 +22,14 @@ void get_URL(const string &host, const string &path) {
     sock.write("GET " + path + " HTTP/1.1\r\n");
     sock.write("Host: " + host + "\r\n");
     sock.write("Connection: close\r\n\r\n");
+    string res;
     while (!sock.eof()) {
         auto s = sock.read(1024);
-        cerr << s;
+        res += s;
     }
+    regex re("\\n\\n");
+    vector<string> v(sregex_token_iterator(res.begin(), res.end(), re, -1), sregex_token_iterator());
+    cerr << v[1];
     sock.close();
 }
 
