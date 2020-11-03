@@ -29,7 +29,9 @@ void get_URL(const string &host, const string &path) {
     }
     regex re("\\n\\n");
     vector<string> v(sregex_token_iterator(res.begin(), res.end(), re, -1), sregex_token_iterator());
-    cerr << v[1];
+    auto body = v[1];
+    body.pop_back();
+    cerr << body;
     sock.close();
 }
 
